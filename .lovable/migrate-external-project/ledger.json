@@ -1,0 +1,18 @@
+{
+  "source": "code-archive (xfdl-lovable.zip: Flask + Python ThreadArch / XFDL media archiver)",
+  "capabilities": [
+    {"capability": "code", "source": "app.py (Flask UI + job API), xfdl.py (scraper/resolver/downloader)", "outcome": "rebuild in TanStack Start: server functions for scrape/resolve/download, browser-driven job pipeline", "status": "in_progress", "next_action": "port and verify"},
+    {"capability": "ui", "source": "HTML_PAGE in app.py (THREADARCH backstage deck, mobile-first neon theme)", "outcome": "recreate same layout, fonts, colors, controls", "status": "in_progress", "next_action": "port and screenshot"},
+    {"capability": "schema", "source": "none (local filesystem ./downloads)", "outcome": "new vault_files table in Lovable Cloud replaces directory walk", "status": "in_progress", "next_action": "migration"},
+    {"capability": "records", "source": "none (no database; downloaded media lived on local disk)", "outcome": "nothing to import; existing local downloads stay on the old machine", "status": "accepted", "next_action": "none"},
+    {"capability": "auth identities", "source": "none (open local app)", "outcome": "add Lovable Cloud sign-in so the hosted vault is private per user", "status": "in_progress", "next_action": "build auth pages"},
+    {"capability": "authorization", "source": "none", "outcome": "RLS on vault_files and storage objects scoped to owner", "status": "in_progress", "next_action": "migration + policies"},
+    {"capability": "uploaded file bytes", "source": "./downloads directory", "outcome": "Lovable Cloud private storage bucket 'vault'", "status": "in_progress", "next_action": "create bucket"},
+    {"capability": "external providers", "source": "Gofile, Redgifs, Pixeldrain, Pixhost, Imgbox, ibb.co, postimg/pixxxels, direct media", "outcome": "preserved resolvers; redgifs resolver was referenced but missing in source, implemented via public API", "status": "in_progress", "next_action": "port resolvers"},
+    {"capability": "secrets", "source": "optional GOFILE_TOKEN, GOFILE_WT_SALT env vars", "outcome": "optional; read from server env when present, guest Gofile token otherwise", "status": "accepted", "next_action": "user may add later"},
+    {"capability": "public endpoints", "source": "/api/files, /api/files/download, /api/files/zip, /api/jobs (internal UI API only)", "outcome": "replaced by signed-in server functions and signed file URLs; no external callers", "status": "in_progress", "next_action": "port"},
+    {"capability": "schedules/webhooks/callbacks", "source": "none", "outcome": "none", "status": "accepted", "next_action": "none"},
+    {"capability": "cli", "source": "xfdl.py main() terminal CLI", "outcome": "not hostable; web deck covers same options", "status": "accepted", "next_action": "none"},
+    {"capability": "verification", "source": "-", "outcome": "unit tests + signed-in browser run", "status": "pending", "next_action": "run after build"}
+  ]
+}
