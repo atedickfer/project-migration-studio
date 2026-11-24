@@ -58,7 +58,7 @@ function hostMatches(host: string, forumHost: string): boolean {
 type SafeFetchInit = {
   method?: string;
   headers?: Record<string, string>;
-  body?: string;
+  body?: string | undefined;
   timeoutMs?: number;
 };
 
@@ -79,13 +79,14 @@ export async function safeFetch(ctx: FetchCtx, url: string, init: SafeFetchInit 
     const timer = setTimeout(() => controller.abort(new Error("Timed out")), init.timeoutMs ?? 15000);
     let res: Response;
     try {
-      res = await fetch(u.href, {
+      const reqInit: RequestInit = {
         method: init.method ?? "GET",
         headers,
-        body: init.body,
         redirect: "manual",
         signal: controller.signal,
-      });
+      };
+      if (init.body !== undefined) reqInit.body = init.body;
+      res = await fetch(u.href, reqInit);
     } finally {
       clearTimeout(timer);
     }
